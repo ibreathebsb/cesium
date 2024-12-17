@@ -76,7 +76,6 @@ function createGlyphCanvas(
   // Setting the padding to something bigger is necessary to get enough space for the outlining.
   writeTextToCanvasParameters.padding = SDFSettings.PADDING;
 
-
   writeTextToCanvasParameters.fill =
     style === LabelStyle.FILL || style === LabelStyle.FILL_AND_OUTLINE;
   writeTextToCanvasParameters.stroke =
@@ -431,7 +430,8 @@ function repositionAllGlyphs(label) {
         glyphPixelOffset.y += SDFSettings.PADDING;
       } else if (verticalOrigin === VerticalOrigin.CENTER) {
         glyphPixelOffset.y =
-          (otherLinesHeight + dimensions.height - maxGlyphY) / 2;
+          (otherLinesHeight + dimensions.height - maxGlyphY + maxGlyphDescent) /
+          2;
       } else if (verticalOrigin === VerticalOrigin.BASELINE) {
         glyphPixelOffset.y = otherLinesHeight;
         glyphPixelOffset.y -= SDFSettings.PADDING;
@@ -482,7 +482,7 @@ function repositionAllGlyphs(label) {
     if (verticalOrigin === VerticalOrigin.TOP) {
       glyphPixelOffset.y = maxLineHeight - maxGlyphY - maxGlyphDescent;
     } else if (verticalOrigin === VerticalOrigin.CENTER) {
-      glyphPixelOffset.y = (maxLineHeight - maxGlyphY) / 2 - maxGlyphDescent;
+      glyphPixelOffset.y = 0;
     } else if (verticalOrigin === VerticalOrigin.BASELINE) {
       glyphPixelOffset.y = -backgroundPadding.y - maxGlyphDescent;
     } else {
